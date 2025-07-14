@@ -66,9 +66,17 @@ async function rollDice() {
     return Math.floor(Math.random() * 6) + 1;
 };
 
+async function raceRound(player1, player2) {
+    for(let round=1;round <= 5; round++) {
+        console.log(
+            ` Rodada ${round}`
+        )
+    }
+}
 async function main(){
     console.log(
         `Iniciando o jogo de corrida entre ${player1.NOME} e ${player2.NOME}...`
     );
+    raceRound(player1, player2);
 };
 main();
