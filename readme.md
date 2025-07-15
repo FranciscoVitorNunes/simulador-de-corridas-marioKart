@@ -44,6 +44,5 @@ git clone https://github.com/FranciscoVitorNunes/simulador-de-corridas-marioKart
 # Acesse a pasta
 cd simulador-de-corridas-marioKart
 
-
 # Execute o simulador
 npm run dev
