@@ -145,17 +145,25 @@ async function raceRound(player1, player2) {
         }
     }
 }
+async function checkWin(player1,player2){
+    console.log(`\n ${player1.NOME} fez ${player1.PONTOS} pontos.`)
+    console.log(`\n${player2.NOME} fez ${player2.PONTOS} pontos.`)
+
+    if(player1.PONTOS>player2.PONTOS)
+        console.log(`\n ${player1.NOME} venceu a disputa!`)
+    else if(player1.PONTOS<player2.PONTOS)
+        console.log(`\n ${player2.NOME} venceu a disputa!`)
+    else
+        console.log(`\n  EMPATE!`)
+
+    player1.PONTOS=0;
+    player2.PONTOS=0;
+}
 async function main(){
     console.log(
         `Iniciando o jogo de corrida entre ${player1.NOME} e ${player2.NOME}...`
     );
     await raceRound(player1, player2);
-    if(player1.PONTOS>player2.PONTOS){
-        console.log(`\n ${player1.NOME} venceu a disputa!`)
-    }else{
-        console.log(`\n ${player2.NOME} venceu a disputa!`)
-    }
-    player1.PONTOS=0;
-    player2.PONTOS=0;
+    await checkWin(player1,player2)
 };
 main();
