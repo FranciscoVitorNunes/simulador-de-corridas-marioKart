@@ -1,65 +1,51 @@
-const player1 = {
-    NOME: "Rafael Relâmpago",
-    VELOCIDADE: 95,
-    MANOBRA: 88,
-    PODER: 80,
-    PONTOS: 0
-}
+import readline from "readline/promises";
+import { stdin as input, stdout as output } from "node:process";
 
-const player2 = {
-    NOME: "Luna Veloz",
-    VELOCIDADE: 90,
-    MANOBRA: 92,
-    PODER: 75,
-    PONTOS: 0
-}
+const personagens = [
+    {
+        NOME: "Mario",
+        VELOCIDADE: 4,
+        MANOBRA: 3,
+        PODER: 3,
+        PONTOS: 0
+    },
+    {
+        NOME: "Peach",
+        VELOCIDADE: 3,
+        MANOBRA: 4,
+        PODER: 2,
+        PONTOS: 0
+    },
+    {
+        NOME: "Yoshi",
+        VELOCIDADE: 2,
+        MANOBRA: 4,
+        PODER: 3,
+        PONTOS: 0
+    },
+    {
+        NOME: "Bowser",
+        VELOCIDADE: 5,
+        MANOBRA: 2,
+        PODER: 5,
+        PONTOS: 0
+    },
+    {
+        NOME: "Luigi",
+        VELOCIDADE: 3,
+        MANOBRA: 4,
+        PODER: 4,
+        PONTOS: 0
+    },
+    {
+        NOME: "Donkey Kong",
+        VELOCIDADE: 2,
+        MANOBRA: 2,
+        PODER: 5,
+        PONTOS: 0
+    }
+];
 
-const player3 = {
-    NOME: "Trovão Max",
-    VELOCIDADE: 85,
-    MANOBRA: 79,
-    PODER: 95,
-    PONTOS: 0
-}
-
-const player4 = {
-    NOME: "Kira Turbo",
-    VELOCIDADE: 87,
-    MANOBRA: 85,
-    PODER: 88,
-    PONTOS: 0
-}
-const player5 = {
-    NOME: "Blade Infernal",
-    VELOCIDADE: 82,
-    MANOBRA: 90,
-    PODER: 78,
-    PONTOS: 0
-}
-
-const player6 = {
-    NOME: "Shadow Nitro",
-    VELOCIDADE: 93,
-    MANOBRA: 84,
-    PODER: 80,
-    PONTOS: 0
-}
-
-const player7 = {
-    NOME: "Tempestade Z",
-    VELOCIDADE: 88,
-    MANOBRA: 91,
-    PODER: 85,
-    PONTOS: 0
-}
-
-const player8 = {
-    NOME: "Vortex Azul",
-    VELOCIDADE: 90,
-    MANOBRA: 86,
-    PODER: 89,
-    PONTOS: 0
-}
 
 
 async function rollDice() {
@@ -86,7 +72,7 @@ async function getRandomBlock(){
     }
     return result;
 }
-async function raceRound(player1, player2) {
+async function raceRound(p1, p2) {
     for(let round=1;round <= 5; round++) {
         console.log(
             ` Rodada ${round}`
@@ -101,33 +87,33 @@ async function raceRound(player1, player2) {
         let totalSkill2 = 0
 
         if(block=="RETA") {
-            totalSkill1 = player1.VELOCIDADE + valorSort1;
-            totalSkill2 = player2.VELOCIDADE + valorSort2;
-            await printResult(player1.NOME,"VELOCIDADE", valorSort1,totalSkill1)
-            await printResult(player2.NOME,"VELOCIDADE", valorSort2,totalSkill2)
+            totalSkill1 = p1.VELOCIDADE + valorSort1;
+            totalSkill2 = p2.VELOCIDADE + valorSort2;
+            await printResult(p1.NOME,"VELOCIDADE", valorSort1,totalSkill1)
+            await printResult(p2.NOME,"VELOCIDADE", valorSort2,totalSkill2)
 
         }
         if(block=="CURVA") {
-            totalSkill1 = player1.MANOBRA + valorSort1;
-            totalSkill2 = player2.MANOBRA + valorSort2;   
-            await printResult(player1.NOME,"MANOBRABILIDADE", valorSort1,totalSkill1)
-            await printResult(player2.NOME,"MANOBRABILIDADE", valorSort2,totalSkill2)
+            totalSkill1 = p1.MANOBRA + valorSort1;
+            totalSkill2 = p2.MANOBRA + valorSort2;   
+            await printResult(p1.NOME,"MANOBRABILIDADE", valorSort1,totalSkill1)
+            await printResult(p2.NOME,"MANOBRABILIDADE", valorSort2,totalSkill2)
 
         }
         if(block=="CONFRONTO") { 
-            console.log(`${player1.NOME} e ${player2.NOME} entraram em combate.`)
-            totalSkill1 = player1.PODER + valorSort1;
-            totalSkill2 = player2.PODER + valorSort2;   
-            await printResult(player1.NOME,"PODER", valorSort1,totalSkill1)
-            await printResult(player2.NOME,"PODER", valorSort2,totalSkill2)  
+            console.log(`${p1.NOME} e ${p2.NOME} entraram em combate.`)
+            totalSkill1 = p1.PODER + valorSort1;
+            totalSkill2 = p2.PODER + valorSort2;   
+            await printResult(p1.NOME,"PODER", valorSort1,totalSkill1)
+            await printResult(p2.NOME,"PODER", valorSort2,totalSkill2)  
             
             if(totalSkill1>totalSkill2 && totalSkill2>0){
                 totalSkill2--;
-                console.log(`${player1.NOME} venceu o combate!`)
+                console.log(`${p1.NOME} venceu o combate!`)
             }
             if(totalSkill2>totalSkill1 && totalSkill1>0){
                 totalSkill1--;
-                console.log(`${player2.NOME} venceu o combate!`)
+                console.log(`${p2.NOME} venceu o combate!`)
             }
             if(totalSkill1==totalSkill2){
                 console.log("EMPATE, nenhum ponto subtraido!")
@@ -135,35 +121,48 @@ async function raceRound(player1, player2) {
             
         }
         if( totalSkill1 > totalSkill2 ){
-            console.log(`${player1.NOME} marcou ponto!!`)
-            player1.PONTOS++;
+            console.log(`${p1.NOME} marcou ponto!!`)
+            p1.PONTOS++;
         }else if(totalSkill1 < totalSkill2){
-            console.log(`${player2.NOME} marcou ponto!!`)
-            player2.PONTOS++;   
+            console.log(`${p2.NOME} marcou ponto!!`)
+            p2.PONTOS++;   
         }else if(totalSkill1==totalSkill2){
             console.log(`Empate !!`)   
         }
     }
 }
-async function checkWin(player1,player2){
-    console.log(`\n ${player1.NOME} fez ${player1.PONTOS} pontos.`)
-    console.log(`\n${player2.NOME} fez ${player2.PONTOS} pontos.`)
+async function checkWin(p1,p2){
+    console.log(`\n ${p1.NOME} fez ${p1.PONTOS} pontos.`)
+    console.log(`\n${p2.NOME} fez ${p2.PONTOS} pontos.`)
 
-    if(player1.PONTOS>player2.PONTOS)
-        console.log(`\n ${player1.NOME} venceu a disputa!`)
-    else if(player1.PONTOS<player2.PONTOS)
-        console.log(`\n ${player2.NOME} venceu a disputa!`)
+    if(p1.PONTOS>p2.PONTOS)
+        console.log(`\n ${p1.NOME} venceu a disputa!`)
+    else if(p1.PONTOS<p2.PONTOS)
+        console.log(`\n ${p2.NOME} venceu a disputa!`)
     else
         console.log(`\n  EMPATE!`)
 
-    player1.PONTOS=0;
-    player2.PONTOS=0;
+    p1.PONTOS=0;
+    p2.PONTOS=0;
 }
 async function main(){
-    console.log(
-        `Iniciando o jogo de corrida entre ${player1.NOME} e ${player2.NOME}...`
-    );
-    await raceRound(player1, player2);
-    await checkWin(player1,player2)
+    const rl = readline.createInterface({ input, output });
+
+    console.log("👾 Jogadores disponíveis:");
+    personagens.forEach(p => console.log("- " + p.NOME));
+
+    const nome1 = await rl.question("\nDigite o nome do primeiro jogador: ");
+    const nome2 = await rl.question("Digite o nome do segundo jogador: ");
+
+    const p1 = personagens.find(p => p.NOME.toLowerCase() === nome1.toLowerCase());
+    const p2 = personagens.find(p => p.NOME.toLowerCase() === nome2.toLowerCase());
+
+    if (!p1 || !p2 || p1 === p2) {
+        console.log("\n❌ Jogadores inválidos ou repetidos. Tente novamente.");
+        rl.close();
+        return;
+    }
+    await raceRound(p1, p2);
+    await checkWin(p1,p2)
 };
 main();
