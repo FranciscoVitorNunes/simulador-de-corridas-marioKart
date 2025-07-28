@@ -1,14 +1,13 @@
 {
   "name": "simulador-de-corridas-mariokart",
   "version": "1.0.0",
-  "description": "",
+  "description": "Simulador de corridas inspirado no Mario Kart",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev":"node src/index.js"
+    "start":"node src/index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Francisco Vitor",
   "license": "ISC",
   "type": "module"
 }
